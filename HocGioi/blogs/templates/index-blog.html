@@ -1,0 +1,288 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+{% load thumbnail %}
+
+{% block content %}
+<div class="page-content">
+
+    <div class="page-content-inner">
+
+
+        <h4> Bài Viết Nổi Bật</h4>
+
+        <div class="uk-child-width-1-2@m uk-grid-match uk-grid-small" uk-grid>
+            <div>
+                {% if data_trend.0 %}
+                <a href="{% url 'blogs:post-detail' data_trend.0.slug %} " class="uk-flex">
+                    <div data-src="{{ data_trend.0.thumbnail.url}}"
+                        class="uk-card-default uk-background-cover rounded uk-flex uk-flex-bottom" uk-img>
+                        <div class="uk-light p-3 my-3">
+                            <h2>{{ data_trend.0.title }}</h2>
+                            <p>{{ data_trend.0.summary }}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            </div>
+            <div>
+                <div class="uk-child-width-1-2@m uk-grid-small uk-card-match" uk-grid>
+                    <div>
+
+                        {% if data_trend.1 %}
+                        <a href="{{ data_trend.1.get_absolute_url }}">
+                            <div class="uk-card-default rounded uk-overflow-hidden">
+                                {% thumbnail  data_trend.1.thumbnail "400x250"  crop="center" as im %}
+                                <img src="{{im.url }}">
+                                {% endthumbnail %}
+
+                                <div class="p-3">
+                                    <h5 class="mb-0">{{ data_trend.1.title}} </h5>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+
+                    </div>
+                    <div>
+                        {% if data_trend.2 %}
+                        <a href="{{ data_trend.2.get_absolute_url }}">
+                            <div class="uk-card-default rounded uk-overflow-hidden">
+                                {% thumbnail  data_trend.2.thumbnail "400x250"  crop="center" as im %}
+                                <img src="{{im.url }}">
+                                {% endthumbnail %}
+                                <div class="p-3">
+                                    <h5 class="mb-0">{{ data_trend.2.title}} </h5>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if data_trend.3 %}
+                        <a href="{{ data_trend.3.get_absolute_url }}">
+                            <div class="uk-card-default rounded uk-overflow-hidden">
+                                {% thumbnail  data_trend.3.thumbnail "400x250"  crop="center" as im %}
+                                <img src="{{im.url }}">
+                                {% endthumbnail %}
+                                <div class="p-3">
+                                    <h5 class="mb-0">{{ data_trend.3.title}} </h5>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if data_trend.4 %}
+                        <a href="{{ data_trend.4.get_absolute_url }}">
+                            <div class="uk-card-default rounded uk-overflow-hidden">
+                                {% thumbnail  data_trend.4.thumbnail "400x250"  crop="center" as im %}
+                                <img src="{{im.url }}">
+                                {% endthumbnail %}
+                                <div class="p-3">
+                                    <h5 class="mb-0">{{ data_trend.4.title}} </h5>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="mt-6"> Thể Loại </h3>
+        <div class="section-header mb-lg-3">
+            <div class="section-header-left">
+
+                <nav class="responsive-tab style-1">
+                    <ul>
+                        <li class="uk-active"><a href="#">Tất cả</a></li>
+                        <li><a href="#">CSS</a></li>
+                        <li><a href="#">HTML</a></li>
+                        <li><a href="#">Freebie</a></li>
+                        <li><a href="#">Resources</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+            <div class="section-header-right">
+
+                <div class="display-as">
+                    <a href="blog-card.html"><i class="icon-feather-grid"></i></a>
+                    <a href="blog-2.html"><i class="icon-feather-square"></i></a>
+                    <a href="blog-1.html" class="active"><i class="icon-feather-list"></i></a>
+                </div>
+                <!-- Custom select structure -->
+                <div class="select_mate uk-visible@s" data-mate-select="active">
+                    <select name="" onclick="return false;" id="">
+                        <option value=""> Newest </option>
+                        <option value="1">Popular</option>
+                        <option value="2">Free</option>
+                        <option value="3">Premium</option>
+                    </select>
+                    <p class="selecionado_opcion" onclick="open_select(this)"></p><span onclick="open_select(this)"
+                        class="icon_select_mate"><svg fill="#000000" height="24" viewBox="0 0 24 24" width="24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z" />
+                            <path d="M0-.75h24v24H0z" fill="none" />
+                        </svg></span>
+                    <div class="cont_list_select_mate">
+                        <ul class="cont_select_int"> </ul>
+                    </div>
+                </div>
+                <!-- Custom select structure -->
+
+            </div>
+        </div>
+
+        <div class="mt-7 uk-grid-large" uk-grid>
+            <div class="uk-width-expand">
+
+
+                <!-- Blog Post -->
+                
+                {% for a in data_post.all %}
+                    <a href="{{ a.get_absolute_url }}" class="blog-post">
+                    <!-- Blog Post Thumbnail -->
+                    <div class="blog-post-thumbnail">
+                        <div class="blog-post-thumbnail-inner">
+                            <img src="{{ a.thumbnail.url }}" alt="">
+                        </div>
+                    </div>
+                    <!-- Blog Post Content -->
+                    <div class="blog-post-content">
+                        <div class="blog-post-content-info">
+                            <span class="blog-post-info-tag button soft-success"> Programming </span>
+                            <span class="blog-post-info-date">{{ a.timestamp | date:"d/m/yy" }}</span>
+                        </div>
+                        <h3>{{ a.title }}</h3>
+                        <p>{{ a.summary }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+                    
+              
+
+                <ul class="uk-pagination my-5 uk-flex-center" uk-margin>
+                    <li class="uk-active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li class="uk-disabled"><span>...</span></li>
+                    <li><a href="#"><span uk-pagination-next></span></a></li>
+                </ul>
+
+            </div>
+            <div class="uk-width-1-3@s">
+
+                <div class="uk-card-default rounded uk-overflow-hidden">
+                    <div class="text-center">
+                        <h5 class="mb-0 p-3 px-4  bg-light"> Newslater and Subsicribe </h5>
+                        <div class="p-5 px-4">
+                            <p> Get the Latest Posts and Article for us On Your Email</p>
+                            <form>
+                                <input type="text" class="uk-input" placeholder="Enter your email address">
+                                <input type="submit" value="Subscirbe" class="button success block mt-3 small">
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="uk-card-default rounded mt-6">
+
+                    <ul class="uk-tab-top uk-child-width-expand uk-tab" uk-switcher="animation: uk-animation-fade">
+                        <li><a href="#">Newest</a></li>
+                        <li><a href="#">Popular</a></li>
+                    </ul>
+
+                    <ul class="uk-switcher uk-margin">
+                        <!-- tab 1 -->
+                        <li>
+                            <div class="p-4 pt-0">
+
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> Overview of SQL Commands and PDO </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-3.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> Writing a Simple MVC App in Plain </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-2.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> How to Create and Use Bash Scripts </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-3.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+
+                        <!-- tab 2 -->
+                        <li>
+                            <div class="p-4 pt-0">
+
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> Overview of SQL Commands and PDO </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-3.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> Writing a Simple MVC App in Plain </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-2.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-expand">
+                                        <p> How to Create and Use Bash Scripts </p>
+                                    </div>
+                                    <div class="uk-width-1-3">
+                                        <img src="{% static './assets/images/blog/img-3.jpg' %}" alt=""
+                                            class="rounded-sm">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <h4 class="mt-4"> Tags </h4>
+                <div uk-margin>
+                    <a href="#" class="button small soft-success">#Webdesing</a>
+                    <a href="#" class="button small soft-success">#Business</a>
+                    <a href="#" class="button small soft-success">#Programming</a>
+                    <a href="#" class="button small soft-success">#Hacking</a>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock content %}
